@@ -77,24 +77,35 @@ class ResultsAnalyzer:
     def ensure_output_folder(output_dir="plots"):
         os.makedirs(output_dir, exist_ok=True)
 
-    def print_summary(self):
+    def save_summary(self, filepath="results.txt"):
         if self.pnl_history.empty:
-            print("No PnL history was recorded.")
+            with open(filepath, "w") as f:
+                f.write("No PnL history was recorded.\n")
             return
 
         final_row = self.pnl_history.iloc[-1]
 
-        print("----- Backtest Summary -----")
-        print(f"Final total PnL:    {final_row['total_pnl']:.2f}")
-        print(f"Final realized PnL: {final_row['realized_pnl']:.2f}")
-        print(f"Total trades closed: {len(self.trades)}")
+        lines = [
+            "========================================",
+            "          BACKTEST SUMMARY              ",
+            "========================================",
+            f"Final total PnL:       {final_row['total_pnl']:>10.2f}",
+            f"Final realized PnL:    {final_row['realized_pnl']:>10.2f}",
+            f"Total trades closed:   {len(self.trades):>10}"
+        ]
 
         if not self.trades.empty:
             win_rate = (self.trades["pnl"] > 0).mean() * 100
             avg_pnl = self.trades["pnl"].mean()
 
-            print(f"Win rate:            {win_rate:.1f}%")
-            print(f"Average PnL / trade: {avg_pnl:.2f}")
+            lines.append(f"Win rate:              {win_rate:>9.1f}%")
+            lines.append(f"Average PnL / trade:   {avg_pnl:>10.2f}")
+
+        lines.append("========================================")
+
+        with open(filepath, "w") as f:
+            f.write("\n".join(lines) + "\n")
+            print(f"Summary successfully saved to {filepath}")
 
     def plot_cumulative_pnl(self, output_path="plots/cumulative_pnl.png"):
         if self.pnl_history.empty:
@@ -574,7 +585,7 @@ class ResultsAnalyzer:
 
 
     def plot_all(self):
-        self.print_summary()
+        self.save_summary()
 
         
         self.plot_cumulative_pnl()

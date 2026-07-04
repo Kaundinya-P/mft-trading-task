@@ -49,17 +49,20 @@ Simply execute the main orchestration script. Ensure you have `pandas`, `numpy`,
 pip install pandas numpy matplotlib
 python run_backtest.py
 ```
-This will run the straddle simulation over all dates available in the `allData` directory, output the results to the terminal, and produce charts.
+This will run the straddle simulation over all dates available in the `allData` directory, save the summary to a `results.txt` file, and produce charts.
 
 ## Results & Output
-After the backtest completes, performance records will be summarized in the terminal:
+After the backtest completes, performance records will be neatly formatted and saved to `results.txt` in the root folder:
 ```text
------ Backtest Summary -----
-Final total PnL:    X.XX
-Final realized PnL: X.XX
-Total trades closed: Y
-Win rate:            Z.Z%
-Average PnL / trade: X.XX
+========================================
+          BACKTEST SUMMARY              
+========================================
+Final total PnL:             XXXX.XX
+Final realized PnL:          XXXX.XX
+Total trades closed:             YYY
+Win rate:                       ZZ.Z%
+Average PnL / trade:         XXXX.XX
+========================================
 ```
 
 A `plots/` folder will be generated showcasing:
