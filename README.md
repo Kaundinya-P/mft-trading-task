@@ -20,6 +20,8 @@ A modular options and futures backtesting engine for the stock market (NIFTY and
 * `portfolio.py`: The portfolio container holding Realized/Unrealized PnL, execution history, and active holds.
 * `results_analyzer.py`: A visualization and data reporting class that consumes portfolio statistics to yield graphs inside the `plots/` directory.
 
+The codebase also contains the report which details all the findings obtained from the data.
+
 ## Getting Started
 
 ### Data Requirements
